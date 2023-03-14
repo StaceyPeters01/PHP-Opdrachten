@@ -1,4 +1,6 @@
 <?php
+// made by: Stacey Peters
+
  function ConnectDb(){
     $servername = "localhost";
     $username = "root";
