@@ -169,14 +169,33 @@ function PrintCrudBier($result){
 }
 
 
+// update bier database functions
 function UpdateBier($row){
     echo "Update row<br>";
-    var_dump($row);
-}
 
+    try {
+        $conn = ConnectDb();
+
+
+        $sql = "UPDATE bier
+        SET
+            naam = '$row[naam]',
+            soort = '$row[soort]',
+            stijl = '$row[stijl]',
+            alcohol = '$row[alcohol]',
+            brouwcode = '$row[brouwcode]'
+        WHERE biercode = $row[biercode]";
+
+        $query = $conn->prepare($sql);
+        $query->execute();
+    }
+    catch (PDOException $e) {
+        echo "ERROR: " . $e->getmessage();
+    }
+}
 function DeleteBier($biercode){
     echo "Delete row<br>";
-    var_dump($biercode);
+    // var_dump($biercode);
 }
 
 ?>
