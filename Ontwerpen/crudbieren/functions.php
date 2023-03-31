@@ -12,7 +12,7 @@
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        echo "Connected successfully";
+        // echo "Connected successfully";
         return $conn;
     } 
     catch(PDOException $e) {
@@ -152,18 +152,21 @@ function PrintCrudBier($result){
         }
         // $table .= "</tr>";
         
-        // Wijzig knopje
-        $table .= "<td>". 
-            "<form method='post' action='update_bier.php?biercode=$row[biercode]' >       
-                    <button name='wzg'>Wijzig</button>	 
-            </form>" . "</td>";
+       // Wijzig button
+       $table .= "<td>". 
+       "<form method='post' action='update_bier.php?biercode=$row[biercode]' >       
+               <button name='wzg'>Wijzigen</button>	 
+       </form>" . "</td>";
 
-        // Delete via linkje href
-        $table .= '<td><a href="delete_bier.php?biercode='.$row["biercode"].'">verwijder</a></td>';
+    //    Delete button
+        $table .= "<td>". 
+        "<form method='post'>       
+                <button name='del' value='$row[biercode]'>Verwijderen</button>	 
+        </form>" . "</td>";
         
         $table .= "</tr>";
-    }
-    $table.= "</table>";
+        }
+        $table.= "</table>";
 
     echo $table;
 }
@@ -193,9 +196,30 @@ function UpdateBier($row){
         echo "ERROR: " . $e->getmessage();
     }
 }
-function DeleteBier($biercode){
-    echo "Delete row<br>";
-    // var_dump($biercode);
+
+
+// delete bier function
+function DeleteBier($row) {
+    try {
+        $conn = ConnectDb();
+
+        $sql = "DELETE FROM bier WHERE `bier`.`biercode` = $row[biercode]";
+        $query = $conn->prepare($sql);
+        $query->execute();
+    }
+    catch (PDOException $e) {
+        die("ERROR: " . $e->getmessage());
+    }
 }
+
+// Delete bier safer version using $_POST
+if (isset($_POST["del"])) {
+    $biercode = $_POST["del"];
+    $row = GetBier($biercode);
+    DeleteBier($row);
+
+    echo"<script type='text/javascript'>alert('Deleted Bier: $row[biercode] $row[naam]');</script>";
+}
+
 
 ?>

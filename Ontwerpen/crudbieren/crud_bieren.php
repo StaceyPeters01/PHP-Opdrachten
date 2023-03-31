@@ -1,6 +1,6 @@
 <?php
 // functie: Programma CRUD bieren
-// auteur: Wigmans   
+// auteur: Stacey Peters SOD1F   
 
 // Initialisatie
 include 'functions.php';
