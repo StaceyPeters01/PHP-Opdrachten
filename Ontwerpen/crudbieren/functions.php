@@ -221,5 +221,19 @@ if (isset($_POST["del"])) {
     echo"<script type='text/javascript'>alert('Deleted Bier: $row[biercode] $row[naam]');</script>";
 }
 
+function dropDown($label, $data){
+
+    $txt = "
+    <label for='$label'>Kies een $label:</label>
+    <select name='$label' id='$label'>";
+
+    foreach($data as $row){
+        $txt .= "<option value='$row[brouwcode]'>$row[naam]</option>";
+    }
+
+    $txt .= "</select>";
+
+    echo $txt;
+}
 
 ?>

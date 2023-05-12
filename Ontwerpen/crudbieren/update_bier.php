@@ -26,7 +26,11 @@
         Soort:<input type="" name="soort" value="<?php echo $row['soort'];?>"><br>
         Stijl:<input type="" name="stijl" value="<?php echo $row['stijl'];?>"><br>
         Alcohol:<input type="" name="alcohol" value="<?php echo $row['alcohol'];?>"><br>
-        Brouwcode:<input type="" name="brouwcode" value="<?php echo $row['brouwcode'];?>"><br>
+        <!-- Brouwcode:<input type="" name="brouwcode" value="<?php echo $row['brouwcode'];?>"><br> -->
+
+        <?php
+            dropDown('brouwcode', GetData('brouwer'));
+        ?>
         
        
         <input type="submit" name="btn_wzg" value="Wijzigen"><br>
