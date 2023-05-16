@@ -236,4 +236,28 @@ function dropDown($label, $data){
     echo $txt;
 }
 
+function AddBier($row){
+    // echo "Update row<br>";
+
+    try {
+        $conn = ConnectDb();
+
+
+        $sql = "INSERT bier
+        SET
+            naam = '$row[naam]',
+            soort = '$row[soort]',
+            stijl = '$row[stijl]',
+            alcohol = '$row[alcohol]',
+            brouwcode = '$row[brouwcode]'
+        WHERE biercode = $row[biercode]";
+
+        $query = $conn->prepare($sql);
+        $query->execute();
+    }
+    catch (PDOException $e) {
+        echo "ERROR: " . $e->getmessage();
+    }
+}
+
 ?>
